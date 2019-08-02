@@ -14,27 +14,33 @@ public class ChatMessageHandler {
 
     public ChatMessageHandler(String message) {
         time = new Timestamp(System.currentTimeMillis());
-        boolean isSnd = message.startsWith("/snd");
-        if (isSnd) {
-            type = CommandType.SND;
-            initialMessage = message.substring(4);
-        } else if (message.startsWith("/hist")) {
-            type = CommandType.HIST;
-            initialMessage = "";
-        } else if (message.startsWith("/child")) {
-            type = CommandType.CHILD;
-            userName = message.substring(6);
-        } else if (message.startsWith("/reader")) {
-            type = CommandType.READER;
-            userId = Integer.parseInt(message.substring(8));
-        } else if (message.startsWith("/writer")) {
-            type = CommandType.WRITER;
-            userId = Integer.parseInt(message.substring(8));
-        } else {
-            type = CommandType.NONE;
-            initialMessage = "Not a command";
+        time = new Timestamp(System.currentTimeMillis());
+        String[] clientCommand = message.split("\\s+", 2);
+        switch (clientCommand[0]) {
+            case "/snd":
+                type = CommandType.SND;
+                initialMessage = message.substring(4);
+                break;
+            case "/hist":
+                type = CommandType.HIST;
+                initialMessage = "";
+                break;
+            case "/child":
+                type = CommandType.CHILD;
+                userName = message.substring(6);
+                break;
+            case "/reader":
+                type = CommandType.READER;
+                userId = Integer.parseInt(message.substring(7));
+                break;
+            case "/writer":
+                type = CommandType.WRITER;
+                userId = Integer.parseInt(message.substring(7));
+                break;
+            default:
+                type = CommandType.NONE;
+                break;
         }
-
     }
 
     public String toString() {

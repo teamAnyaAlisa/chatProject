@@ -8,7 +8,7 @@ import java.util.LinkedList;
 class Session extends Thread {
     private Socket client;
     private BufferedReader in;
-    private BufferedWriter out;
+//    private BufferedWriter out;
     private SessionStorage sessionStorage;
     private String username = "Anonymous";
     private int clientId;
@@ -29,6 +29,10 @@ class Session extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isReader() {
+        return isReader;
     }
 
 
@@ -73,7 +77,7 @@ class Session extends Thread {
 
     private void broadcast(ChatMessageHandler messageHandler) {
         synchronized (this) {
-            Iterator<Session> sessionIterator = sessionStorage.getSessions().iterator();
+            Iterator<Session> sessionIterator = sessionStorage.getWriterSessions().iterator();
             while (sessionIterator.hasNext()) {
                 unicast(sessionIterator, messageHandler);
             }
@@ -87,7 +91,7 @@ class Session extends Thread {
                 ChatMessageHandler messageHandler = new ChatMessageHandler(in.readLine());
                 LinkedList<Session> list = new LinkedList<>();
                 list.add(this);
-                switch (messageHandler.getType()){
+                switch (messageHandler.getType()) {
                     case SND:
                         messageHandler.setName(username);
                         broadcast(messageHandler);

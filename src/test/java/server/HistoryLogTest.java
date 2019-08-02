@@ -2,6 +2,7 @@ package server;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedInputStream;
@@ -14,6 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Java_1 on 01.08.2019.
  */
+@Ignore
 public class HistoryLogTest {
     @Before
     public void setUp() throws Exception {

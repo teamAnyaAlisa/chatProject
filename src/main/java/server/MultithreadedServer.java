@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MultithreadedServer {
-    public static HistoryLog logger;
+    static HistoryLog logger;
 
     static {
         try {

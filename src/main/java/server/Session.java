@@ -8,20 +8,13 @@ import java.util.LinkedList;
 class Session extends Thread {
     private Socket client;
     private BufferedReader in;
-//    private BufferedWriter out;
     private SessionStorage sessionStorage;
     private String username = "Anonymous";
     private int clientId;
     private boolean isReader;
+
     private static HistoryLog logger;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    private static final String encoding = "windows-1251";
 
     static {
         try {
@@ -31,12 +24,12 @@ class Session extends Thread {
         }
     }
 
-    public boolean isReader() {
+    boolean isReader() {
         return isReader;
     }
 
 
-    public Session(Socket client) throws IOException {
+    Session(Socket client) throws IOException {
         this.client = client;
         sessionStorage = SessionStorage.getTheOne();
 
@@ -46,7 +39,7 @@ class Session extends Thread {
                                 client.getInputStream())));
     }
 
-    public Socket getClient() {
+    Socket getClient() {
         return client;
     }
 
@@ -54,7 +47,7 @@ class Session extends Thread {
         return new BufferedWriter(
                 new OutputStreamWriter(
                         new BufferedOutputStream(
-                                client.getOutputStream())));
+                                client.getOutputStream()), encoding));
     }
 
     private void unicast(Iterator<Session> sessionIterator, ChatMessageHandler messageHandler) {
@@ -94,8 +87,8 @@ class Session extends Thread {
                 switch (messageHandler.getType()) {
                     case SND:
                         messageHandler.setName(username);
-                        broadcast(messageHandler);
                         logger.log(messageHandler.getInfoMessage());
+                        broadcast(messageHandler);
                         break;
                     case HIST:
                         unicast(list.iterator(), messageHandler);

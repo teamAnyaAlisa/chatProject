@@ -1,7 +1,6 @@
 package server;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 
 /**
  * Created by Java_1 on 01.08.2019.
@@ -45,16 +44,10 @@ public class ChatMessageHandler {
         }
     }
 
-    public String getTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
-        return formatter.format(date);
-    }
-
     public String toString() {
         switch(type) {
             case HIST:
-                return logger.getHistory();
+                return MultithreadedServer.logger.getHistory();
             case CHID:
                 return "Set name: " + userName;
             default:

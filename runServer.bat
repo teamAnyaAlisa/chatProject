@@ -1,2 +1,2 @@
-java -cp ./target -classpath ./target/classes server.MultithreadedServer
-
+cd "target\appassembler\bin"
+start server

@@ -1,1 +1,3 @@
-java -cp ./target -classpath ./target/classes client.Client
+cd "target\appassembler\bin"
+start clientWriter
+start clientReader

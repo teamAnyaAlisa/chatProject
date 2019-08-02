@@ -21,7 +21,7 @@ public class ClientWriter {
                                  new OutputStreamWriter(
                                          new BufferedOutputStream(
                                                  server.getOutputStream(), 100)))) {
-                out.write("/writer " + args[0]);
+                out.write("/writer ");
                 out.newLine();
                 out.flush();
                 while (true) {

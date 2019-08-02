@@ -16,7 +16,7 @@ public class ClientReader {
                                  new InputStreamReader(
                                          new BufferedInputStream(
                                                  System.in)))) {
-                out.write("/reader " + args[0]);
+                out.write("/reader ");
                 out.newLine();
                 out.flush();
                 while (true) {

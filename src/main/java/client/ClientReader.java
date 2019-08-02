@@ -4,22 +4,24 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientReader {
+    private static final String encoding = "windows-1251";
+
     public static void main(String[] args) {
         try (final Socket server = new Socket("localhost", 666);
              final BufferedWriter out =
                      new BufferedWriter(
                              new OutputStreamWriter(
                                      new BufferedOutputStream(
-                                             server.getOutputStream(), 100)));
+                                             server.getOutputStream(), 100), encoding));
              BufferedReader consoleIn =
                      new BufferedReader(
                              new InputStreamReader(
                                      new BufferedInputStream(
-                                             System.in)));
+                                             System.in), encoding));
              BufferedReader console = new BufferedReader(
                      new InputStreamReader(
                              new BufferedInputStream(
-                                     System.in)))) {
+                                     System.in), encoding))) {
             String userName = "";
             while (true) {
                 System.out.println("Please input name with command '/chid': ");
@@ -32,7 +34,7 @@ public class ClientReader {
             out.write("/reader");
             out.newLine();
             out.flush();
-            out.write("/chid "+ userName);
+            out.write(userName);
             out.newLine();
             out.flush();
             while (true) {

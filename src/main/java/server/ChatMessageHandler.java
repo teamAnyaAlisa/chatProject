@@ -1,6 +1,7 @@
 package server;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 /**
@@ -13,6 +14,12 @@ public class ChatMessageHandler {
     private CommandType type;
     private String userName = "";
     private int userId;
+
+    public String getTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        return formatter.format(date);
+    }
 
     public ChatMessageHandler(String message, HistoryLog logger) {
         this.logger = logger;
@@ -45,16 +52,10 @@ public class ChatMessageHandler {
         }
     }
 
-    public String getTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
-        return formatter.format(date);
-    }
-
     public String toString() {
         switch(type) {
             case HIST:
-                return logger.getHistory();
+                return MultithreadedServer.logger.getHistory();
             case CHID:
                 return "Set name: " + userName;
             default:

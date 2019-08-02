@@ -30,14 +30,5 @@ public class MultithreadedServer {
                 }
             }
         }).start();
-        new Thread(() -> {
-            try {
-                while (Thread.activeCount() > 1) {
-                }
-                logger.closeFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
     }
 }

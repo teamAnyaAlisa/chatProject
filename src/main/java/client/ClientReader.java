@@ -5,32 +5,44 @@ import java.net.Socket;
 
 public class ClientReader {
     public static void main(String[] args) {
-        try (final Socket server = new Socket("localhost", 666)) {
-            try (final BufferedWriter out =
-                         new BufferedWriter(
-                                 new OutputStreamWriter(
-                                         new BufferedOutputStream(
-                                                 server.getOutputStream(), 100)));
-                 BufferedReader consoleIn =
-                         new BufferedReader(
-                                 new InputStreamReader(
-                                         new BufferedInputStream(
-                                                 System.in)))) {
-                out.write("/reader " + args[0]);
+        try (final Socket server = new Socket("localhost", 666);
+             final BufferedWriter out =
+                     new BufferedWriter(
+                             new OutputStreamWriter(
+                                     new BufferedOutputStream(
+                                             server.getOutputStream(), 100)));
+             BufferedReader consoleIn =
+                     new BufferedReader(
+                             new InputStreamReader(
+                                     new BufferedInputStream(
+                                             System.in)));
+             BufferedReader console = new BufferedReader(
+                     new InputStreamReader(
+                             new BufferedInputStream(
+                                     System.in)))) {
+            String userName = "";
+            while (true) {
+                System.out.println("Please input name with command '/chid': ");
+                userName = console.readLine();
+                String command = userName.split(" ")[0];
+                if ("/chid".equals(command) && userName.length() > 5) {
+                    break;
+                }
+            }
+            out.write("/reader");
+            out.newLine();
+            out.flush();
+            out.write("/chid "+ userName);
+            out.newLine();
+            out.flush();
+            while (true) {
+                String line = consoleIn.readLine();
+                out.write(line);
                 out.newLine();
                 out.flush();
-                while (true) {
-                    String line = consoleIn.readLine();
-                    out.write(line);
-                    out.newLine();
-                    out.flush();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         } catch (IOException e) {
-            e.printStackTrace();
-
+            System.out.println("Connection was closed");
         }
     }
 }

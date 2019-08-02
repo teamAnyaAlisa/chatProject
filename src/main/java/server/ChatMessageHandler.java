@@ -15,13 +15,13 @@ public class ChatMessageHandler {
     private String userName = "";
     private int userId;
 
-    public String getTime() {
+    String getTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         return formatter.format(date);
     }
 
-    public ChatMessageHandler(String message, HistoryLog logger) {
+    ChatMessageHandler(String message, HistoryLog logger) {
         this.logger = logger;
         this.time = getTime();
         String[] clientCommand = message.split("\\s+", 2);
@@ -63,23 +63,23 @@ public class ChatMessageHandler {
         }
     }
 
-    public String getName() {
+    String getName() {
         return userName;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         userName = name;
     }
 
-    public String getInfoMessage() {
+    String getInfoMessage() {
         return ">>> "+ userName + " : " + time + " : " + initialMessage;
     }
 
-    public CommandType getType() {
+    CommandType getType() {
         return type;
     }
 
-    public int getUserId() {
+    int getUserId() {
         return userId;
     }
 }

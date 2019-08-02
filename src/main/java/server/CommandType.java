@@ -6,7 +6,7 @@ package server;
 public enum CommandType {
     SND,
     HIST,
-    CHILD,
+    CHID,
     READER,
     WRITER,
     NONE;

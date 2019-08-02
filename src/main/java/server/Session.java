@@ -88,7 +88,7 @@ class Session extends Thread {
     public void run() {
         while (true) {
             try {
-                ChatMessageHandler messageHandler = new ChatMessageHandler(in.readLine());
+                ChatMessageHandler messageHandler = new ChatMessageHandler(in.readLine(), MultithreadedServer.logger);
                 LinkedList<Session> list = new LinkedList<>();
                 list.add(this);
                 switch (messageHandler.getType()) {
@@ -100,7 +100,7 @@ class Session extends Thread {
                     case HIST:
                         unicast(list.iterator(), messageHandler);
                         break;
-                    case CHILD:
+                    case CHID:
                         username = messageHandler.getName();
                         unicast(list.iterator(), messageHandler);
                         break;

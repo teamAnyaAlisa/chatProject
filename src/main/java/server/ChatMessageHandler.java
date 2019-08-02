@@ -54,7 +54,7 @@ public class ChatMessageHandler {
     public String toString() {
         switch(type) {
             case HIST:
-                return MultithreadedServer.logger.getHistory();
+                return logger.getHistory();
             case CHID:
                 return "Set name: " + userName;
             default:
